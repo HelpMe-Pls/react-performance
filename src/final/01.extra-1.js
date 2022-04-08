@@ -1,5 +1,5 @@
 // Code splitting
-// 💯 eager loading
+// 💯 eager loading with dynamic import
 // http://localhost:3000/isolated/final/01.extra-1.js
 
 import * as React from 'react'

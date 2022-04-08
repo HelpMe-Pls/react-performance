@@ -2,7 +2,8 @@
 // http://localhost:3000/isolated/exercise/01.js
 
 import * as React from 'react'
-// 💣 remove this import
+
+// Compare the "Coverage" output between this style of import and the `lazy` import from `src/final/01.js`
 import Globe from '../globe'
 
 // 🐨 use React.lazy to create a Globe component which uses a dynamic import
@@ -28,6 +29,7 @@ function App() {
 		>
 			<label style={{marginBottom: '1rem'}}>
 				<input
+					// Without the "lazy loading", the user has to wait for the <Globe/> to be FULLY loaded before they can see this checkbox
 					type="checkbox"
 					checked={showGlobe}
 					onChange={e => setShowGlobe(e.target.checked)}

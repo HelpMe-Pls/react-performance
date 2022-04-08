@@ -3,6 +3,8 @@
 
 import * as React from 'react'
 
+// Using `React.lazy()` basically tells React to import this ON DEMAND (i.e. after everything else is loaded)
+// Verify this by observing the "Network" tab (in the Devtools): refresh the page, see its ouput on the initial render, clear that up THEN click on the "Show globe", you'll see some more "chunks" (of the `lazy` thing) being loaded
 const Globe = React.lazy(() => import('../globe'))
 
 function App() {
