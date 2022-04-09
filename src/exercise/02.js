@@ -7,20 +7,20 @@ import {getItems} from '../filter-cities'
 import {useForceRerender} from '../utils'
 
 function Menu({
-	items,
 	getMenuProps,
+	items,
 	getItemProps,
-	highlightedIndex,
 	selectedItem,
+	highlightedIndex,
 }) {
 	return (
 		<ul {...getMenuProps()}>
 			{items.map((item, index) => (
 				<ListItem
 					key={item.id}
-					getItemProps={getItemProps}
-					item={item}
 					index={index}
+					item={item}
+					getItemProps={getItemProps}
 					selectedItem={selectedItem}
 					highlightedIndex={highlightedIndex}
 				>
@@ -32,9 +32,9 @@ function Menu({
 }
 
 function ListItem({
-	getItemProps,
-	item,
 	index,
+	item,
+	getItemProps,
 	selectedItem,
 	highlightedIndex,
 	...props
