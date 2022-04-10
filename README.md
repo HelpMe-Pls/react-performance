@@ -1,5 +1,7 @@
 # What I've learnt
+###### Performance optimizations are not free. They **ALWAYS** come with a cost but do **NOT** always come with a benefit to offset that cost. Therefore, optimize responsibly.
 ###### *For more details, see `src/exercise/*.md` files*
+
 -------------
 
 ## Code Splitting
@@ -14,3 +16,9 @@
 - `useMemo()` allows us to compare the *cached* **value** (i.e. an invoked function or anything that’s not a function or capable of returning other values) against its latest version. Its callback is only executed when *one of the dependencies* has changed. A good indicator for when to use it at [0:55](https://epicreact.dev/modules/react-performance/usememo-for-expensive-calculations-solution) 
 - An [ideal](https://epicreact.dev/modules/react-performance/usememo-for-expensive-calculations-extra-credit-solution-1) JS-runtime.
 - Use [Web Worker](https://github.com/HelpMe-Pls/react-performance/blob/master/src/workerized-filter-cities.js) instead of `useMemo` when `useMemo` needs a substantial amount of time to recalculate the value and you can’t make it faster. Pay attention to the [asynchronous nature](https://github.com/HelpMe-Pls/react-performance/blob/master/src/final/02.extra-2.j) of the web worker when using it (line `64 -> 67`). [More details](https://epicreact.dev/modules/react-performance/usememo-for-expensive-calculations-extra-credit-solution-2)
+
+## `React.memo` - for reducing unnecessary re-renders
+- React app's [lifecycle](https://epicreact.dev/modules/react-performance/reactmemo-for-reducing-re-renders-intro).
+- What is a [re-render](https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render#what-is-a-re-render): React calls our function component **again** to get the React elements we need rendered to the DOM. It then compares those new React elements with the ones we gave it last time we rendered. From that it can tell what DOM updates to make, and then makes those updates for us in the most performant way possible.
+- Just because a component is re-rendered, **doesn't mean** the DOM will be updated. This is commonly referred to as an "*unnecessary* re-render". Therefore, your problem ***might be*** unnecessary re-renders, but it's more likely a problem with slow renders in general. There's something that your code is doing ***during*** the render phase that's making things slow. **You should diagnose and fix that *first***, then, we can determine whether re-renders are still a problem (by using the Profiler).
+- [When](https://kentcdodds.com/blog/usememo-and-usecallback#reactmemo-and-friends) to use `React.memo`. Making the mistake of wrapping ***everything*** in React.memo which can actually *slow down* your app in some cases and in all cases it makes your code *more complex*.
