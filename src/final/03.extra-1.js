@@ -70,11 +70,11 @@ ListItem = React.memo(ListItem, (prevProps, nextProps) => {
 	// this is trickier. We should only re-render if this list item:
 	// 1. was highlighted before and now it's not
 	// 2. was not highlighted before and now it is
+	// i.e. wasHighlighted !== isNowHighlighted for both cases
 	if (prevProps.highlightedIndex !== nextProps.highlightedIndex) {
-		const wasPrevHighlighted =
-			prevProps.highlightedIndex === prevProps.index
+		const wasHighlighted = prevProps.highlightedIndex === prevProps.index
 		const isNowHighlighted = nextProps.highlightedIndex === nextProps.index
-		return wasPrevHighlighted === isNowHighlighted
+		return wasHighlighted === isNowHighlighted // true --> no need to re-render
 	}
 	return true
 })
