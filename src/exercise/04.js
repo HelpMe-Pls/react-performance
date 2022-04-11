@@ -1,4 +1,5 @@
 // Window large lists with react-virtual
+// epicreact.dev/modules/react-performance/window-large-lists-with-react-virtual-solution
 // http://localhost:3000/isolated/exercise/04.js
 
 import * as React from 'react'
@@ -10,7 +11,7 @@ import {useAsync, useForceRerender} from '../utils'
 
 // 💰 I made this for you, you'll need it later:
 const getVirtualRowStyles = ({size, start}) => ({
-	position: 'absolute',
+	position: 'absolute', // explained at 5:10
 	top: 0,
 	left: 0,
 	width: '100%',
@@ -33,12 +34,9 @@ function Menu({
 		// 🐨 pass the listRef to the `getMenuProps` prop getter function below:
 		// 💰  getMenuProps({ref: listRef})
 		<ul {...getMenuProps({ref: listRef})}>
-			{/* 🐨 add a li here with an inline style for the height set to the totalHeight */}
+			{/* 🐨 add a li here with an inline style for the height set to the `totalHeight`, to ensure that the scrollable area of the <ul /> is the same height it would be if we were actually rendering everything */}
 			<li style={{height: totalHeight}}></li>
-			{/*
-        🦉 this is to ensure that the scrollable area of the <ul /> is the
-        same height it would be if we were actually rendering everything
-      */}
+
 			{/* instead of mapping the "items" we're going to map over the virtualRows */}
 			{/* 🐨 swap `items` with `virtualRows` */}
 			{/*
@@ -49,7 +47,7 @@ function Menu({
       */}
 			{virtualRows.map(({index, size, start}) => {
 				const virtualRow = items[index]
-				if (!virtualRow) return null
+				// if (!virtualRow) return null
 				return (
 					<ListItem
 						key={virtualRow.id}
