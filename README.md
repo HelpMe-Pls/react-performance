@@ -24,3 +24,6 @@
 - [When](https://kentcdodds.com/blog/usememo-and-usecallback#reactmemo-and-friends) to use `React.memo`. Making the mistake of wrapping ***everything*** in React.memo which can actually *slow down* your app in some cases and in all cases it makes your code *more complex*.
 - `React.memo` accepts a second argument which is a custom compare function ([at 04:35](https://epicreact.dev/modules/react-performance/reactmemo-for-reducing-re-renders-extra-credit-solution-1)) that allows us to compare the props and return **true** if rendering the component again is **un**necessary (i.e. `React.memo` does its job) and false if it is necessary.
 - Consider moving props that are primitive values up higher in the tree ([at 01:50]((https://epicreact.dev/modules/react-performance/reactmemo-for-reducing-re-renders-extra-credit-solution-2)) before thinking of using `React.memo`'s comparator function.
+
+## Optimizing large lists with `react-virtual`
+- Rather than iterating over all the items in your list and render **all** of them at once, you simply use the `useVirtual` hook and pass to it how many rows are in your list, give it a callback that it can use to determine what size they each should be, and then it will give you back `virtualItems` and a `totalSize` which you can then use to only render the items the user should be able to see within the window.
