@@ -7,32 +7,6 @@ import {useCombobox} from '../use-combobox'
 import {getItems} from '../workerized-filter-cities'
 import {useAsync, useForceRerender} from '../utils'
 
-function Menu({
-	items,
-	getMenuProps,
-	getItemProps,
-	highlightedIndex,
-	selectedItem,
-}) {
-	return (
-		<ul {...getMenuProps()}>
-			{items.map((item, index) => (
-				<ListItem
-					key={item.id}
-					getItemProps={getItemProps}
-					item={item}
-					index={index}
-					isSelected={selectedItem?.id === item.id}
-					isHighlighted={highlightedIndex === index}
-				>
-					{item.name}
-				</ListItem>
-			))}
-		</ul>
-	)
-}
-Menu = React.memo(Menu)
-
 function ListItem({
 	getItemProps,
 	item,
@@ -56,6 +30,35 @@ function ListItem({
 	)
 }
 ListItem = React.memo(ListItem)
+
+function Menu({
+	items,
+	getMenuProps,
+	getItemProps,
+	highlightedIndex,
+	selectedItem,
+}) {
+	return (
+		<ul {...getMenuProps()}>
+			{items.map((item, index) => (
+				<ListItem
+					key={item.id}
+					getItemProps={getItemProps}
+					item={item}
+					index={index}
+					/**
+					 * Passing these props as primitive values and we can take advantage of React’s built-in comparison function and remove our comparator function in `React.memo`
+					 */
+					isSelected={selectedItem?.id === item.id}
+					isHighlighted={highlightedIndex === index}
+				>
+					{item.name}
+				</ListItem>
+			))}
+		</ul>
+	)
+}
+Menu = React.memo(Menu)
 
 function App() {
 	const forceRerender = useForceRerender()
