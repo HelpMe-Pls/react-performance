@@ -29,6 +29,6 @@
 - Rather than iterating over all the items in your list and render **all** of them at once, you simply use the `useVirtual` hook and pass to it how many rows are in your list, give it a callback that it can use to determine what size they each should be, and then it will give you back `virtualItems` and a `totalSize` which you can then use to only render the items the user should be able to see within the window.
 
 ## Optimize context value
-- All consumers that are descendants of a `Provider` [will re-render](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (at 0:25) whenever the Provider’s `value` prop changes, therefore, the consumer is updated even when an ancestor component bails out of the update.
+- All consumers that are descendants of a `Provider` [will re-render](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (at 0:25) whenever the Provider’s `value` prop changes, therefore, the consumer is updated [even](https://epicreact.dev/modules/react-performance/optimize-context-value-extra-credit-solution-1) when an ancestor component bails out of the update (at 0:25).
 - In case your context `value` changes frequently, a quick way to improve performance is to [memoize it](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (at 02:45) with `React.useMemo`.
-- A better (and more complex) alternative is to separate the state and the mechanism for updating that state into two separate contexts.
+- A better (and more complex) alternative is using SoC pattern by [separating](https://epicreact.dev/modules/react-performance/optimize-context-value-extra-credit-solution-1) the state and the mechanism for updating that state (at 01:15) into two separate contexts.
