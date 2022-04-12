@@ -83,10 +83,10 @@ function Grid() {
 }
 Grid = React.memo(Grid)
 
+const useContextHooks = () => [useAppState(), useAppDispatch()]
 function Cell({row, column}) {
-	const state = useAppState()
+	const [state, dispatch] = useContextHooks()
 	const cell = state.grid[row][column]
-	const dispatch = useAppDispatch()
 	const handleClick = () => dispatch({type: 'UPDATE_GRID_CELL', row, column})
 	return (
 		<button
