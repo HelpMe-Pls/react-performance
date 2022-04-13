@@ -38,6 +38,7 @@ function AppProvider({children}) {
 		dogName: '',
 		grid: initialGrid,
 	})
+	// ONLY `useMemo` here if there's an OBVIOUS need to improve performance
 	const value = React.useMemo(() => [state, dispatch], [state])
 	return (
 		<AppStateContext.Provider value={value}>

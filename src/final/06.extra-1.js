@@ -158,6 +158,7 @@ function App() {
 		<div className="grid-app">
 			<button onClick={forceRerender}>force rerender</button>
 			<div>
+				{/* Colocating the context as well */}
 				<DogProvider>
 					<DogNameInput />
 				</DogProvider>

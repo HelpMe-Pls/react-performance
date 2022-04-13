@@ -1,5 +1,5 @@
 # What I've learnt
-###### Performance optimizations are not free. They **ALWAYS** come with a cost but do **NOT** always come with a benefit to offset that cost. Therefore, optimize responsibly. [An example](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (04:20) to see if your code refactor has made any perf boost.
+##### Performance optimizations are not free. They **ALWAYS** come with a cost but do **NOT** always come with a benefit to offset that cost. Therefore, optimize responsibly and make sure to measure your refactor to see if it's worth it. [An example](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (at 04:20) to see if your code refactor has made any perf boost.
 ###### *For more details, see `src/exercise/*.md` files*
 
 -------------
@@ -30,9 +30,10 @@
 
 ## Optimize context value
 - All consumers that are descendants of a `Provider` [will re-render](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (at 0:25) whenever the Provider’s `value` prop changes, therefore, the consumer is updated [even](https://epicreact.dev/modules/react-performance/optimize-context-value-extra-credit-solution-1) when an ancestor component bails out of the update (at 0:25).
-- In case your context `value` changes frequently, a quick way to improve performance is to [memoize it](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (at 02:45) with `React.useMemo`.
+- **In case** your context `value` changes frequently, a quick way to improve performance is to [memoize it](https://epicreact.dev/modules/react-performance/optimize-context-value-solution) (at 02:45) with `React.useMemo`.
 - A better (and more complex) alternative is using SoC pattern by [separating](https://epicreact.dev/modules/react-performance/optimize-context-value-extra-credit-solution-1) the state and the mechanism for updating that state (at 01:15) into two separate contexts.
 
 ## Fix "perf death by a thousand cuts"
-- One of the perf issues is when updating the state of a component/element causes **lots** of other components to be rerendered (i.e. component**s** *unnecessarily* responding to a state change). You may think of `React.memo` as a solution, but then you may end up in the "death by a thousand cuts", which means that there's not really a single place that's slow, so you wind up applying `React.memo` everywhere and drastically increases the complexity of your application's code because React does still need to run through every component from the top to determine whether it should re-render.
-- A recommended solution is to have SoC design by [colocating state](https://github.com/HelpMe-Pls/react-performance/blob/master/src/examples/where-to-put-state.webp).
+- One of the perf issues is when updating the state of a component/element causes **lots** of other components to be rerendered (i.e. component**s** *unnecessarily* responding to a state change). You may think of `React.memo` as a solution, but then you may end up in the "death by a thousand cuts", which means that there's no specific section that's slow, so you wind up applying `React.memo` everywhere and drastically *increases the complexity* of your application's code because React does still need to run through every component from the top to determine whether it should re-render.
+- A recommended approach is to have a SoC design by [colocating state](https://github.com/HelpMe-Pls/react-performance/blob/master/src/examples/where-to-put-state.webp).
+- After colocating the state, if there's a need for accessing that state from other components in the app, then consider separating our app’s state logically into domain-specific context providers ([at 0:30](https://epicreact.dev/modules/react-performance/fix-perf-death-by-a-thousand-cuts-extra-credit-solution-1))
