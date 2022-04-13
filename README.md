@@ -35,4 +35,4 @@
 
 ## Fix "perf death by a thousand cuts"
 - One of the perf issues is when updating the state of a component/element causes **lots** of other components to be rerendered (i.e. component**s** *unnecessarily* responding to a state change). You may think of `React.memo` as a solution, but then you may end up in the "death by a thousand cuts", which means that there's not really a single place that's slow, so you wind up applying `React.memo` everywhere and drastically increases the complexity of your application's code because React does still need to run through every component from the top to determine whether it should re-render.
-- A recommended solution is to have SoC design by [colocating state](https://kentcdodds.com/blog/state-colocation-will-make-your-react-app-faster#what-is-colocated-state).
+- A recommended solution is to have SoC design by [colocating state](https://github.com/HelpMe-Pls/react-performance/blob/master/src/examples/where-to-put-state.webp).
