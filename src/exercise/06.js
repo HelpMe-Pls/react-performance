@@ -112,6 +112,7 @@ function DogNameInput() {
 	// const dispatch = useAppDispatch()
 	const [dogName, setDogName] = React.useState('')
 
+	// Now, whenever we type in the <input/>, ONLY this component is re-rendered, not the whole <App/> like before.
 	function handleChange(event) {
 		const newDogName = event.target.value
 		// 🐨 change this to call your state setter that you get from useState
