@@ -1,6 +1,6 @@
 // Fix "perf death by a thousand cuts"
 // 💯 write an HOC to get a slice of app state
-// http://localhost:3000/isolated/final/06.extra-3.js
+// https://epicreact.dev/modules/react-performance/fix-perf-death-by-a-thousand-cuts-extra-credit-solution-3
 
 import * as React from 'react'
 import {
@@ -105,16 +105,21 @@ function Grid() {
 }
 Grid = React.memo(Grid)
 
+// explanation at 0:35
 function withStateSlice(Comp, slice) {
 	const MemoComp = React.memo(Comp)
+
+	// Passing `ref` in case someone wants to "ref" this component. Keep in mind that `ref` is a built-in OPTIONAL prop, just like `key`
 	function Wrapper(props, ref) {
 		const state = useAppState()
 		return <MemoComp ref={ref} state={slice(state, props)} {...props} />
 	}
+	// For Devtool's convention:
 	Wrapper.displayName = `withStateSlice(${Comp.displayName || Comp.name})`
 	return React.memo(React.forwardRef(Wrapper))
 }
 
+// alias `state: cell` and destructure that {...props} --> {row, column}
 function Cell({state: cell, row, column}) {
 	const dispatch = useAppDispatch()
 	const handleClick = () => dispatch({type: 'UPDATE_GRID_CELL', row, column})
@@ -131,6 +136,7 @@ function Cell({state: cell, row, column}) {
 		</button>
 	)
 }
+// Destructure: props --> {row, column}
 Cell = withStateSlice(Cell, (state, {row, column}) => state.grid[row][column])
 
 function DogNameInput() {
