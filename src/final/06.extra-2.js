@@ -105,6 +105,7 @@ function Grid() {
 }
 Grid = React.memo(Grid)
 
+// Separating the "piece of state" the matters for the component
 function Cell({row, column}) {
 	const state = useAppState()
 	const cell = state.grid[row][column]
@@ -112,6 +113,11 @@ function Cell({row, column}) {
 }
 Cell = React.memo(Cell)
 
+/**
+ * This is the component which represents "other consumers of the context"
+ * and now THEY won't be affected (i.e. rerendered)
+ * unless THEIR a specific slice of `state.grid[row][column]` changes
+ */
 function CellImpl({cell, row, column}) {
 	const dispatch = useAppDispatch()
 	const handleClick = () => dispatch({type: 'UPDATE_GRID_CELL', row, column})
