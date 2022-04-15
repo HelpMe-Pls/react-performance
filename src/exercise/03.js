@@ -32,7 +32,7 @@ function Menu({
 }
 // 🐨 Memoize the Menu here using React.memo
 // Actually not memoizing `Menu` and only memoize `ListItem` still gives some perf buff, but having both of them memoized gives better perf overall
-Menu = React.memo(Menu)
+// Menu = React.memo(Menu)
 
 function ListItem({
 	getItemProps,
@@ -59,7 +59,7 @@ function ListItem({
 	)
 }
 // 🐨 Memoize the ListItem here using React.memo
-ListItem = React.memo(ListItem)
+// ListItem = React.memo(ListItem)
 
 function App() {
 	const forceRerender = useForceRerender()
