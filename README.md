@@ -42,4 +42,4 @@
 
 ## Production performance monitoring
 - Use `React.Profiler` [to ensure](https://epicreact.dev/modules/react-performance/production-performance-monitoring-solution) that we always ship fast experiences to our users.
-- Use the *experimental* `trace` API to [record user's interactions](https://epicreact.dev/modules/react-performance/production-performance-monitoring-extra-credit-solution-1) (at 0:50) on a component within a <React.Profiler />
+- Use the *experimental* `trace` API to [record user's interactions](https://epicreact.dev/modules/react-performance/production-performance-monitoring-extra-credit-solution-1) (at 0:50) on a component within a `<React.Profiler />`
