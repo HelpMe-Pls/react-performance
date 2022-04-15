@@ -1,18 +1,54 @@
-// React.memo for reducing unnecessary re-renders
-// http://localhost:3000/isolated/exercise/03.js
+// useMemo for expensive calculations
+// http://localhost:3000/isolated/final/02.js
 
 import * as React from 'react'
-import {useCombobox} from '../use-combobox'
-import {getItems} from '../workerized-filter-cities'
-import {useAsync, useForceRerender} from '../utils'
+import {useCombobox} from '../../use-combobox'
+import {getItems} from '../../filter-cities'
+import {useForceRerender} from '../../utils'
+import {
+	UseComboboxGetMenuPropsOptions,
+	GetPropsCommonOptions,
+	UseComboboxGetItemPropsOptions,
+} from 'downshift'
+import {UnpackArray} from '../../types'
 
-function Menu({
+type Items = ReturnType<typeof getItems>
+
+type IMenuProps = {
+	items: Items
+	getMenuProps: (
+		options?: UseComboboxGetMenuPropsOptions | undefined,
+		otherOptions?: GetPropsCommonOptions | undefined,
+	) => any
+	getItemProps: (
+		options: UseComboboxGetItemPropsOptions<{
+			id: string
+			country: string
+			name: string
+			lat: string
+			lng: string
+		}>,
+	) => any
+	highlightedIndex: number
+	selectedItem: UnpackArray<Items> | null
+}
+
+type IListItemProps = Pick<
+	IMenuProps,
+	'getItemProps' | 'selectedItem' | 'highlightedIndex'
+> & {
+	item: UnpackArray<Items>
+	index: number
+	children: React.ReactNode
+}
+
+const Menu = ({
 	items,
 	getMenuProps,
 	getItemProps,
 	highlightedIndex,
 	selectedItem,
-}) {
+}: IMenuProps) => {
 	return (
 		<ul {...getMenuProps()}>
 			{items.map((item, index) => (
@@ -30,18 +66,15 @@ function Menu({
 		</ul>
 	)
 }
-// 🐨 Memoize the Menu here using React.memo
-// Actually not memoizing `Menu` and only memoize `ListItem` still gives some perf buff, but having both of them memoized gives better perf overall
-// Menu = React.memo(Menu)
 
-function ListItem({
+const ListItem = ({
 	getItemProps,
 	item,
 	index,
 	selectedItem,
 	highlightedIndex,
 	...props
-}) {
+}: IListItemProps) => {
 	const isSelected = selectedItem?.id === item.id
 	const isHighlighted = highlightedIndex === index
 	return (
@@ -58,17 +91,12 @@ function ListItem({
 		/>
 	)
 }
-// 🐨 Memoize the ListItem here using React.memo
-// ListItem = React.memo(ListItem)
 
-function App() {
+const App = () => {
 	const forceRerender = useForceRerender()
 	const [inputValue, setInputValue] = React.useState('')
 
-	const {data: allItems, run} = useAsync({data: [], status: 'pending'})
-	React.useEffect(() => {
-		run(getItems(inputValue))
-	}, [inputValue, run])
+	const allItems = React.useMemo(() => getItems(inputValue), [inputValue])
 	const items = allItems.slice(0, 100)
 
 	const {
@@ -83,7 +111,8 @@ function App() {
 	} = useCombobox({
 		items,
 		inputValue,
-		onInputValueChange: ({inputValue: newValue}) => setInputValue(newValue),
+		onInputValueChange: ({inputValue: newValue}) =>
+			setInputValue(String(newValue)),
 		onSelectedItemChange: ({selectedItem}) =>
 			alert(
 				selectedItem
@@ -101,7 +130,7 @@ function App() {
 				<div {...getComboboxProps()}>
 					<input {...getInputProps({type: 'text'})} />
 					<button
-						onClick={() => selectItem(null)}
+						onClick={() => selectItem({} as UnpackArray<Items>)}
 						aria-label="toggle menu"
 					>
 						&#10005;
@@ -120,8 +149,3 @@ function App() {
 }
 
 export default App
-
-/*
-eslint
-  no-func-assign: 0,
-*/
