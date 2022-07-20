@@ -1,5 +1,5 @@
 # What I've learnt
-##### Performance optimizations are not free. They **ALWAYS** come with a cost but do **NOT** always come with a benefit to offset that cost. Therefore, optimize responsibly and make sure to measure your refactor to see if it's worth it. An example ([at 04:20](https://epicreact.dev/modules/react-performance/optimize-context-value-solution)) to see if your code refactor has made any perf boost.
+##### Performance optimizations are not free. Don't prematurely optimize, always measure first. We want to have solid proof that something is slow before acting on it. Therefore, optimize responsibly and make sure to measure your refactor to see if it's worth it. An example ([at 04:20](https://epicreact.dev/modules/react-performance/optimize-context-value-solution)) to see if your code refactor has made any perf boost.
 ###### *For more details, see [`src/exercise/*.md`](https://github.com/HelpMe-Pls/react-performance/tree/master/src/exercise) files*
 
 -------------
